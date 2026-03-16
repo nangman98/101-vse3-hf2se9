@@ -1,0 +1,9 @@
+name: Issue
+description: Create an issue
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+    validations:
+      required: true

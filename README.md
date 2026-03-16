@@ -41,16 +41,6 @@ Transition metal trichalcogenide (MX3)는 1D chain 구조를 가지며, TP (trig
 | 3 | Hf 도핑 molecule 구조 → CNT 포함 MD로 안정성 재시도 |
 | 4 | CNT 영향 (밴드, charge transfer 등) |
 
-### 판단 포인트
-
-- 1-2개월 내 재계산 성공 여부가 프로젝트 방향을 결정
-  - 성공 → molecule junction + 1D superlattice 스토리로 확장
-  - 실패 → TP/TAP 구조 비교만으로 간결하게 마무리
-
-### 긴급성
-
-- 중국 그룹에서 유사 물질 DFT 계산을 활발히 진행 중 → novelty 선점 우려
-
 ## Key Results
 
 (아직 없음)

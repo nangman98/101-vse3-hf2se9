@@ -16,3 +16,14 @@ Thumbs.db
 WAVECAR
 CHGCAR
 CHG
+
+# Archives
+*.tar.gz
+
+# Previous calculation data (reference only)
+101_VSe3-Hf2Se9/
+VSe3-Hf2Se9/
+
+# Raw meeting notes / transcripts
+2026*.txt
+2026*미팅노트.md

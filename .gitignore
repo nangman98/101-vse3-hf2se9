@@ -17,13 +17,23 @@ WAVECAR
 CHGCAR
 CHG
 
-# Archives
-*.tar.gz
+# Pseudopotentials (binary, managed on HPC)
+*.psml
+*.upf
 
-# Previous calculation data (reference only)
-101_VSe3-Hf2Se9/
+# SIESTA runtime outputs (generated on HPC)
+siesta.stdout
+siesta.out
+*.DM
+*.XV
+*.TSHS
+*.xml
+*.STRUCT_NEXT_ITER
+*.ion
+fdf-*
+
+# Archives & reference data
+archive/
+
+# Calculation workspace (synced to HPC separately)
 VSe3-Hf2Se9/
-
-# Raw meeting notes / transcripts
-2026*.txt
-2026*미팅노트.md

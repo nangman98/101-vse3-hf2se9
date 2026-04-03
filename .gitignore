@@ -35,5 +35,18 @@ fdf-*
 # Archives & reference data
 archive/
 
+# Claude Code / local tools
+.claude/
+.ralph/
+claude-skills/
+render_structure.py
+CLAUDE.md
+
+# Meeting drafts (local only)
+meetings/next/next.md
+meetings/next/next-organized.md
+meetings/next/next-organized-figures.md
+meetings/가이드/
+
 # Calculation workspace (synced to HPC separately)
 VSe3-Hf2Se9/

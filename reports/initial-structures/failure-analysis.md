@@ -235,7 +235,63 @@ XC.authors     KBM      # vdW-DF-cx (consistent exchange)
 
 ---
 
-## 6. 향후 개선 방향 요약
+## 6. Heterostructure Separation Test — 3가지 버전 비교
+
+VSe3(3uc)–Hf₂Se₉–VSe3(3uc) 이종접합에서 VSe3–Hf₂Se₉ 간 separation을 2.5~4.0 Å로 변화시켜 single-point 에너지를 계산했다. 3가지 버전은 **구조 자체가 다르므로** total energy를 직접 비교할 수 없고, 각 버전 내에서의 에너지 경향만 비교한다.
+
+### 6-1. 버전 구분
+
+| 버전 | Functional | 구조 원본 | 계면 배치 | V-Se 간격 (Å) | z lattice (Å) |
+|------|-----------|----------|----------|--------------|--------------|
+| 07-hetero | vdW-DF2 | vdW-DF2 relaxed VSe3 + Hf₂Se₉ | V-Se₃-V (비대칭) | 1.557 | 32.690 (d=3.5) |
+| 08-hetero-v2 | vdW-DF2 | 07과 동일 구조, 뒤집어서 Se-Se 마주보게 | Se₃-V-Se₃ (대칭) | 1.557 | 32.980 (d=3.5) |
+| 09-hetero-d2 | PBE+D2 | PBE+D2 relaxed VSe3 + Hf₂Se₉ | Se₃-V-Se₃ (대칭) | 1.513 | 32.453 (d=3.5) |
+
+**주요 차이점:**
+- **07 vs 08**: 같은 functional(vdW-DF2), 같은 구조 — 계면 배치만 다름 (V-facing vs Se-facing). total energy 직접 비교 가능.
+- **07/08 vs 09**: functional(vdW-DF2 vs PBE+D2)과 relaxed 구조가 모두 다름. total energy 직접 비교 불가.
+- **VSe3 내부 치수**: 09(PBE+D2 relaxed)는 V-Se 간격이 1.513 Å로 07/08(vdW-DF2 relaxed, 1.557 Å)보다 짧다.
+
+### 6-2. 구조 렌더링 (d = 3.5 Å, side view)
+
+#### 07-hetero (vdW-DF2, V-Se₃-V 비대칭)
+![07-hetero d=3.5](hetero/hetero-df2-asym-d3.5.png)
+
+vdW-DF2 relaxed VSe3 + Hf₂Se₉ 사용. V-Se₃-V 순서로 배열 (비대칭 계면).
+
+#### 08-hetero-v2 (vdW-DF2, Se₃-V-Se₃ 대칭)
+![08-hetero-v2 d=3.5](hetero/hetero-df2-sym-d3.5.png)
+
+07과 동일 구조를 뒤집어 Se-Se가 마주보게 배치 (대칭 계면). Functional은 07과 동일(vdW-DF2).
+
+#### 09-hetero-d2 (PBE+D2, Se₃-V-Se₃ 대칭)
+![09-hetero-d2 d=3.5](hetero/hetero-d2-sym-d3.5.png)
+
+PBE+D2 relaxed VSe3 + Hf₂Se₉ 사용. Se₃-V-Se₃ 대칭 배치. Functional과 구조 모두 07/08과 다르다.
+
+#### 3개 구조 비교
+![구조 비교](hetero/hetero-structures-compare.png)
+
+### 6-3. 에너지 결과 (각 버전 내 상대 에너지, d=4.0 기준)
+
+![에너지 비교](hetero/hetero-energy-vs-sep.png)
+
+| d (Å) | 07 vdW-DF2 V-Se₃-V (eV) | 08 vdW-DF2 Se₃-V-Se₃ (eV) | 09 PBE+D2 Se₃-V-Se₃ (eV) |
+|-------|--------------------------|----------------------------|-----------------------------|
+| 2.5 | -3.73 | -6.21 | -8.31 |
+| 3.0 | -2.00 | -4.10 | -4.89 |
+| 3.5 | -0.84 | -1.61 | -1.84 |
+| 4.0 | 0.00 | 0.00 | 0.00 |
+
+### 6-4. 분석
+
+1. **3가지 모두 d=2.5에서 에너지가 계속 감소 중** — 현재 범위(2.5~4.0 Å) 내에서 minimum을 찾지 못했다.
+2. **07 vs 08 (같은 functional, 계면만 다름)**: Se-Se 대칭 배치(08)가 V-facing(07)보다 기울기가 급하다. d=4.0에서 total energy도 08이 0.60 eV 낮다. Se-Se 계면이 더 강하게 결합함을 의미한다.
+3. **09(PBE+D2)는 07/08(vdW-DF2)과 직접 비교 불가**: functional과 relaxed 구조가 모두 다르므로 기울기 차이의 원인을 분리할 수 없다.
+
+---
+
+## 7. 향후 개선 방향 요약
 
 | 문제 | 해결책 |
 |------|--------|

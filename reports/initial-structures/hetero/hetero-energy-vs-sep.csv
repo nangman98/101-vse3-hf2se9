@@ -1,0 +1,13 @@
+Version,Functional,Structure,Interface,Separation (Å),E_KS (eV),E_rel (eV; ref d=4.0)
+07-hetero,vdW-DF2,vdW-DF2 relaxed,V-Se3-V (asymmetric),2.5,-114568.0482,-3.73
+07-hetero,vdW-DF2,vdW-DF2 relaxed,V-Se3-V (asymmetric),3.0,-114566.3168,-2.00
+07-hetero,vdW-DF2,vdW-DF2 relaxed,V-Se3-V (asymmetric),3.5,-114565.1530,-0.84
+07-hetero,vdW-DF2,vdW-DF2 relaxed,V-Se3-V (asymmetric),4.0,-114564.3151,0.00
+08-hetero-v2,vdW-DF2,vdW-DF2 relaxed,Se3-V-Se3 (symmetric),2.5,-114571.1258,-6.21
+08-hetero-v2,vdW-DF2,vdW-DF2 relaxed,Se3-V-Se3 (symmetric),3.0,-114569.0155,-4.10
+08-hetero-v2,vdW-DF2,vdW-DF2 relaxed,Se3-V-Se3 (symmetric),3.5,-114566.5231,-1.61
+08-hetero-v2,vdW-DF2,vdW-DF2 relaxed,Se3-V-Se3 (symmetric),4.0,-114564.9176,0.00
+09-hetero-d2,PBE+D2,PBE+D2 relaxed,Se3-V-Se3 (symmetric),2.5,-114025.6708,-8.31
+09-hetero-d2,PBE+D2,PBE+D2 relaxed,Se3-V-Se3 (symmetric),3.0,-114022.2510,-4.89
+09-hetero-d2,PBE+D2,PBE+D2 relaxed,Se3-V-Se3 (symmetric),3.5,-114019.2032,-1.84
+09-hetero-d2,PBE+D2,PBE+D2 relaxed,Se3-V-Se3 (symmetric),4.0,-114017.3596,0.00

@@ -42,10 +42,11 @@ claude-skills/
 render_structure.py
 CLAUDE.md
 
-# Meeting drafts (local only)
-meetings/next/next.md
-meetings/next/next-organized.md
-meetings/next/next-organized-figures.md
+# Meeting drafts and recordings (local only)
+meetings/*/next.md
+meetings/*/next-organized.md
+meetings/*/next-organized-figures.md
+meetings/*/recording/
 meetings/가이드/
 
 # Calculation workspace (synced to HPC separately)

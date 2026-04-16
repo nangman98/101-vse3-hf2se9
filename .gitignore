@@ -54,7 +54,12 @@ meetings/2026-03-23/
 03-calc/
 레퍼런스/
 WORK-QUEUE.md
+STATUS.md
 claude-code-session-*.md
+reports/computation-plan.md
+reports/computation-curriculum.md
+reports/hf2se9-stability/docs/a2-scf-debug.md
+reports/hf2se9-stability/cnt-diameter-scan-topview.png
 
 # Calculation workspace (synced to HPC separately)
 VSe3-Hf2Se9/

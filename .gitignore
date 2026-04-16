@@ -48,6 +48,13 @@ meetings/*/next-organized.md
 meetings/*/next-organized-figures.md
 meetings/*/recording/
 meetings/가이드/
+meetings/2026-03-23/
+
+# Local workspace (personal calc/notes, not for repo)
+03-calc/
+레퍼런스/
+WORK-QUEUE.md
+claude-code-session-*.md
 
 # Calculation workspace (synced to HPC separately)
 VSe3-Hf2Se9/

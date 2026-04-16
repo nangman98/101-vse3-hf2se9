@@ -22,6 +22,15 @@ Transition metal trichalcogenide (MX3)는 1D chain 구조를 가지며, TP (trig
 - Hf 도핑 → 1D molecule junction 관찰 + 구조 제안
 - 궁극적 목표: 1D metal superlattice 구조 (concept proposal)
 
+## Document Map
+
+- `README.md`: 프로젝트 개요와 진입점
+- `STATUS.md`: 현재 계산 상태와 핵심 결과
+- `WORK-QUEUE.md`: 바로 실행할 작업 목록
+- `meetings/`: 날짜별 미팅/커뮤니케이션 노트
+- `reports/`: 계산 분석 리포트
+- `레퍼런스/`: 레퍼런스 요약과 발표용 참고 문헌 정리
+
 ## Plan
 
 ### Figure 구성 (초안)

@@ -125,14 +125,40 @@ dDmax가 시도마다 **악화** (0.0004 → 0.002 → 0.014). Tolerance를 1e-6
 27 steps 진행 후 OOM kill. Hf-Hf = 4.30 Å, max force = 0.396 eV/Å. 수렴과는 거리가 먼 상태.
 archive chain 계산(PBE+D2, 같은 SCF 설정)은 수렴한 적 있으므로, molecule과 chain의 시스템 차이가 관련될 수 있으나 확인 안 됨.
 
-## 현재 상태
+## A2-v4 결과 (Perlmutter, 2026-04-03)
 
-A2 molecule에서 SCF 미수렴 — 4회 시도(r3, r4, v2, v3) 모두 실패.
-원인 미확인. archive의 chain PBE+D2 계산(Weight 0.1, History 15, Tol 1e-8)은 수렴했으므로, PBE+D2 자체가 불가능한 것은 아님.
+SCF 수렴을 위해 설정을 크게 변경:
+
+| 파라미터 | 표준 설정 | v4-prescf | v4-relax |
+|---------|----------|-----------|---------|
+| OccupationFunction | MP | **FD** | **FD** |
+| ElectronicTemperature | 300 K | **1000 K** | **700 K** |
+| PAO.EnergyShift | default | **10 meV** | **10 meV** |
+| SCF.DM.Tolerance | — | 1e-4 | 1e-4 |
+| SCF.Mixer.Weight | — | 0.05 | 0.05 |
+
+- prescf: SCF only (MD.Steps 0), DM 생성 → 완료
+- relax: prescf DM으로 restart, 344 steps → 완료
+- Hf-Hf = 3.543 Å (TEM 3.6 Å의 -1.6%)
+
+**문제**: FD 700K + EnergyShift 10meV는 표준 설정이 아님. 이 결과가 D2 때문인지 설정 차이 때문인지 분리 불가.
+
+## 전체 시도 요약
+
+| 버전 | DM.Tolerance | Weight | Occup/Temp | 실제 DM 수렴 | 결과 |
+|------|-------------|--------|-----------|-------------|------|
+| v1 (r3) | 1e-10 | 0.3 | MP 300K | ~5e-5에서 진동 | 1500 SCF 후 abort |
+| v1 (r4) | 1e-10 | 0.3 | MP 300K (DM restart) | 2.4e-3 (악화) | abort |
+| v2 | 1e-6 | 0.15 | MP 300K | ~0.014 (악화) | abort |
+| v3 | 1e-8 | 0.1 | MP 300K | ~1e-4에서 진동 | OOM |
+| v4 | 1e-4 | 0.05 | **FD 700K** | 수렴 | 완료 (비표준 설정) |
+| **v5a** | **1e-4** | **0.05** | **MP 300K** | ✅ 수렴 (iter 25, 0.000088) | post-SCF InitMesh OOM |
+| **v5b** | **1e-6** | **0.05** | **MP 300K** | ✅ 1e-6 도달 (iter 33, 0.000001) | post-SCF InitMesh OOM |
 
 ### 관측된 사실
 - A1(PBE), A3(vdW-DF2), A4(PBE+D3): 같은 molecule에서 SCF 수렴 성공
-- A2(PBE+D2): 같은 molecule에서 SCF 수렴 실패 (SCF 설정 변경해도)
+- A2(PBE+D2): 같은 molecule에서 SCF 수렴 실패 (표준 설정으로 4회)
+- A2-v4(PBE+D2): FD 700K + EnergyShift 10meV로 변경 시 수렴 성공
 - Archive chain PBE+D2: 수렴 성공 (c = 8.417 Å)
 - VSe3 PBE+D2: TP/TAP 모두 수렴 성공
 
@@ -144,3 +170,65 @@ A2 molecule에서 SCF 미수렴 — 4회 시도(r3, r4, v2, v3) 모두 실패.
 | Weight | 0.1 | 0.3 → 0.15 → 0.1 |
 | Tolerance | 1e-8 | 1e-10 → 1e-6 → 1e-8 |
 | History | 15 | 10 → 10 → 15 |
+
+## A2-v5 계획 (표준 설정 + 보수적 mixing)
+
+v4에서 Weight 0.05가 효과적이었으므로, 표준 occupation(MP 300K)을 유지하면서 Weight 0.05로 재시도.
+
+| 파라미터 | v5a | v5b |
+|---------|-----|-----|
+| OccupationFunction | MP | MP |
+| ElectronicTemperature | 300 K | 300 K |
+| SCF.DM.Tolerance | **1e-4** | **1e-6** |
+| SCF.MustConverge | **T** | **F** |
+| SCF.Mixer.Weight | 0.05 | 0.05 |
+| SCF.Mixer.History | 15 | 15 |
+| MaxSCFIterations | 500 | 500 |
+
+- v5a (1e-4, MustConverge T): 확실히 수렴 가능
+- v5b (1e-6, MustConverge F): 1e-6 도달 시도, 실패해도 다음 geometry step으로 진행
+
+## A2-v5 결과 (2026-04-07)
+
+누리온 lmp_cnt continuous job (slot `run.20260406-170356.log`)에서 v5a → v5b 순차 실행. **둘 다 SCF는 수렴했지만 post-SCF mesh 초기화 시점에 OOM kill**.
+
+| | v5a (Tol 1e-4, MustConverge T) | v5b (Tol 1e-6, MustConverge F) |
+|---|---|---|
+| 노드 | 4노드 × 32 rank = 128 MPI | 동일 |
+| SCF iter 도달 | 25 | 33 |
+| 마지막 dDmax | `0.000088` | `0.000001` |
+| SCF 상태 | ✅ 수렴 (1e-4 만족, iter 25) | ✅ 1e-6 도달 (iter 33) |
+| Wall time | ~3h 50m (17:50 → 21:39) | ~5h (21:39 → 02:35) |
+| 죽은 위치 | post-SCF `InitMesh 360³` | post-SCF `InitMesh 360³` |
+| 종료 | exit=255, SIGKILL (node7740 모든 rank) | 동일 |
+
+경로: `/scratch/x3251a05/VSe3-Hf2Se9/03-calc/05-hf2se9-mol/stability-test/A2-pbe-d2-v5a` (및 `-v5b`)
+
+### 핵심 발견
+
+**SCF 자체는 더 이상 문제가 아니다.** SCF.Mixer.Weight 0.05 + History 15 + MP 300K (표준 occupation)로 PBE+D2 수렴이 가능함이 확인됨. v4의 비표준 FD 700K + EnergyShift 10 meV가 필요하지 않았다.
+
+### 죽은 메커니즘
+
+stdout 패턴 (v5a, v5b 동일):
+
+```
+scf:   25  ...  0.000088 ...    ← SCF 수렴
+outcell: Cell vector modules (Ang): 25.000000 25.000000 25.000000
+outcell: Cell volume (Ang**3)     : 15625.0000
+InitMesh: MESH = 360 x 360 x 360 = 46656000
+InitMesh: Mesh cutoff (required, used) = 500.000  573.095 Ry
+[BAD TERMINATION ... KILLED BY SIGNAL: 9 ... node7740]
+```
+
+원인: 25³ Å³ 박스 + MeshCutoff 500 Ry → **mesh 360³ = 46.6M grid points**. SCF 동안에는 sparse density matrix 위주로 동작하다가, post-SCF에서 forces/stress 계산용 dense mesh를 다시 잡는 시점에 한 노드 메모리(KNL ~96GB)를 초과. 4노드 × 32 rank = 128 MPI에서 mesh 분산이 부족.
+
+### 다음 단계 후보
+
+| 옵션 | 변경 | 효과 | 비고 |
+|---|---|---|---|
+| (1) 노드 ↑ | 4 → **8노드** (256 rank) | mesh 분산 ↑, mesh 자체는 동일 | 가장 안전, SCF 설정 그대로 |
+| (2) MeshCutoff ↓ | 500 → 400 Ry | 360³ → ~288³ (≈ 24M, 절반) | 정확도 약간 손실 |
+| (3) 박스 ↓ | 25 → 20 Å | 360³ → 288³ (≈ 24M) | molecule 분리 거리 확인 필요 |
+
+**권장**: (1) 8노드 재제출. v5 SCF 설정 (Weight 0.05, History 15, MP 300K, Tol 1e-4) 그대로 유지.

@@ -1,0 +1,57 @@
+[
+  {
+    "N": 8,
+    "cell_c_Ang": 61.871,
+    "half_length_Ang": 30.86,
+    "gauge_offset_eV": -0.0379,
+    "peak_dVm_meV": 404.85,
+    "d_10meV_Ang": 4.65,
+    "d_1meV_Ang": 22.84,
+    "tail_dVm_meV_at_cell_edge": 15.072,
+    "screening_length_lambda_Ang": 5.94
+  },
+  {
+    "N": 10,
+    "cell_c_Ang": 74.411,
+    "half_length_Ang": 37.13,
+    "gauge_offset_eV": -0.0374,
+    "peak_dVm_meV": 391.74,
+    "d_10meV_Ang": 4.58,
+    "d_1meV_Ang": 4.58,
+    "tail_dVm_meV_at_cell_edge": 15.353,
+    "screening_length_lambda_Ang": 7.46
+  },
+  {
+    "N": 12,
+    "cell_c_Ang": 86.951,
+    "half_length_Ang": 43.4,
+    "gauge_offset_eV": -0.0347,
+    "peak_dVm_meV": 387.39,
+    "d_10meV_Ang": 4.57,
+    "d_1meV_Ang": 30.72,
+    "tail_dVm_meV_at_cell_edge": 14.221,
+    "screening_length_lambda_Ang": 8.94
+  },
+  {
+    "N": 14,
+    "cell_c_Ang": 99.491,
+    "half_length_Ang": 49.67,
+    "gauge_offset_eV": -0.0317,
+    "peak_dVm_meV": 388.87,
+    "d_10meV_Ang": 4.57,
+    "d_1meV_Ang": 4.57,
+    "tail_dVm_meV_at_cell_edge": 13.08,
+    "screening_length_lambda_Ang": 10.71
+  },
+  {
+    "N": 20,
+    "cell_c_Ang": 137.111,
+    "half_length_Ang": 68.48,
+    "gauge_offset_eV": -0.0245,
+    "peak_dVm_meV": 384.11,
+    "d_10meV_Ang": 4.57,
+    "d_1meV_Ang": 38.71,
+    "tail_dVm_meV_at_cell_edge": 9.824,
+    "screening_length_lambda_Ang": 17.35
+  }
+]

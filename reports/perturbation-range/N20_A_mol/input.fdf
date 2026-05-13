@@ -1,0 +1,52 @@
+#
+SystemLabel              siesta
+SystemName               perturb-range-N20-A_mol
+
+%include                 struct.fdf
+
+XC.functional            VDW
+XC.authors               LMKLL
+
+MeshCutoff               500.0 Ry
+OccupationFunction       MP
+OccupationMPOrder        1
+ElectronicTemperature    300 K
+
+%block kgrid_Monkhorst_Pack
+      1      0     0        0.0
+      0      1     0        0.0
+      0      0     1        0.0
+%endblock kgrid_Monkhorst_Pack
+
+SolutionMethod           diagon
+Diag.ParallelOverK       T
+Diag.Algorithm           ELPA
+
+# SCF only — no relaxation
+MD.TypeOfRun             CG
+MD.Steps                 0
+
+MaxSCFIterations         1500
+SCF.DM.Converge          T
+SCF.DM.Tolerance         1.0d-8
+SCF.MustConverge         T
+SCF.Mix                  Hamiltonian
+SCF.Mix.First            F
+SCF.Mixer.Method         Pulay
+SCF.Mixer.Variant        original
+SCF.Mixer.Weight         0.2
+SCF.Mixer.History        15
+
+# Save potentials for perturbation range analysis
+SaveElectrostaticPotential  T
+SaveTotalPotential          T
+SaveRho                     F
+
+Write.DM                 T
+Write.H                  F
+WriteMullikenPop         1
+WriteEigenvalues         F
+WriteCoorInitial         T
+WriteForces              T
+XML.Write                T
+SaveHS                   F

@@ -1,0 +1,13 @@
+[
+  {
+    "N": 14,
+    "cell_c_Ang": 102.462,
+    "half_length_Ang": 52.76,
+    "gauge_offset_eV": -0.0671,
+    "peak_dVm_meV": 221.46,
+    "d_10meV_Ang": 5.79,
+    "d_1meV_Ang": 33.9,
+    "tail_dVm_meV_at_cell_edge": 27.983,
+    "screening_length_lambda_Ang": 11.28
+  }
+]
